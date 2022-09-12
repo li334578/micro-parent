@@ -1,0 +1,11 @@
+FROM openjdk:8-jdk-alpine
+
+MAINTAINER "Wenbo Li"
+
+WORKDIR /home/ubuntu/docker/micro-user
+
+ADD target/micro-user-0.0.1-SNAPSHOT.jar /micro-user.jar
+
+EXPOSE 10012
+
+ENTRYPOINT java -jar micro-user.jar

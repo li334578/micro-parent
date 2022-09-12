@@ -1,0 +1,23 @@
+
+spring:
+  application:
+    name: micro-common
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 150.230.251.14:8848
+        auto-register: true # 是否自动注册到 Nacos 中。默认为 false。
+        namespace: b4324a95-7dbe-44d9-b18b-8a761164988f # 使用的 Nacos 的命名空间，默认为 null。
+        register:
+          service-name: ${spring.application.name} # 注册到 Nacos 的服务名
+          group-name: DEFAULT_GROUP # 使用的 Nacos 服务分组，默认为 DEFAULT_GROUP。
+      config:
+        file-extension: yaml
+        server-addr: 150.230.251.14:8848
+        namespace: b4324a95-7dbe-44d9-b18b-8a761164988f
+        username: nacos
+        password: li334578
+        timeout: 10000
+  #      cluster-name: # 集群名，默认为空。
+server:
+  port: 10011

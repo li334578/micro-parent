@@ -1,0 +1,17 @@
+CREATE TABLE `tb_user` (
+  `id` bigint(20) NOT NULL COMMENT '用户id 雪花算法',
+  `username` varchar(50) NOT NULL COMMENT '用户名',
+  `password` varchar(100) NOT NULL COMMENT '密码，加密存储',
+  `phone` varchar(20) DEFAULT NULL COMMENT '注册手机号',
+  `email` varchar(50) DEFAULT NULL COMMENT '注册邮箱',
+  `created` datetime NOT NULL COMMENT '创建时间',
+  `updated` datetime NOT NULL COMMENT '修改时间',
+  `nick_name` varchar(50) DEFAULT NULL COMMENT '昵称',
+  `name` varchar(50) DEFAULT NULL COMMENT '真实姓名',
+  PRIMARY KEY (`username`),
+  UNIQUE KEY `username` (`username`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+
+INSERT INTO tb_user(id,username,password,phone,email,created,updated,nick_name,name)
+ VALUES (1569188081062903808,'admin','123456','18737843824','liwenbo4922@163.com',NOW(),NOW(),'超级管理员','李');
