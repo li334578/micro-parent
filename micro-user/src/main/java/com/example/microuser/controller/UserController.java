@@ -1,5 +1,6 @@
 package com.example.microuser.controller;
 
+import com.example.microcommon.bean.Result;
 import com.example.microuser.bean.User;
 import com.example.microuser.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +27,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("list")
-    public void getAllUserInfo() {
+    public Result<List<User>> getAllUserInfo() {
         List<User> list = userService.list();
         list.stream().map(User::toString).forEach(log::info);
+        return Result.success(list);
     }
 }
