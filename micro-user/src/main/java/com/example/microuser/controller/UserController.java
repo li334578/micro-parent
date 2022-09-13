@@ -1,5 +1,6 @@
 package com.example.microuser.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.microcommon.bean.Result;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.microuser.bean.User;
