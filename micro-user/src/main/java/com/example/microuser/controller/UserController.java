@@ -1,10 +1,12 @@
 package com.example.microuser.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.microcommon.bean.Result;
 import com.example.microuser.bean.User;
 import com.example.microuser.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +33,13 @@ public class UserController {
         List<User> list = userService.list();
         list.stream().map(User::toString).forEach(log::info);
         return Result.success(list);
+    }
+
+    @GetMapping("{id}")
+    public void getOne(@PathVariable Long id) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        User user = userService.getOne(queryWrapper);
+        log.info(user.toString());
     }
 }
