@@ -36,10 +36,11 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public void getOne(@PathVariable Long id) {
+    public Result<User> getOne(@PathVariable Long id) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
         User user = userService.getOne(queryWrapper);
         log.info(user.toString());
+        return Result.success(user);
     }
 }
