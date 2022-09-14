@@ -32,6 +32,7 @@
         <redisson.version>3.16.0</redisson.version>
         <mybatis.plus.version>3.1.1</mybatis.plus.version>
         <mysql.version>8.0.20</mysql.version>
+        <satoken.version>1.31.0</satoken.version>
     </properties>
 
     <dependencyManagement>
@@ -111,6 +112,18 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <!-- Sa-Token 权限认证, 在线文档：http://sa-token.dev33.cn/ -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-dao-redis-jackson</artifactId>
+                <version>${satoken.version}</version>
             </dependency>
         </dependencies>
 

@@ -14,4 +14,4 @@ CREATE TABLE `tb_user` (
 
 
 INSERT INTO tb_user(id,username,password,phone,email,created,updated,nick_name,name)
- VALUES (1569188081062903808,'admin','123456','18737843824','liwenbo4922@163.com',NOW(),NOW(),'超级管理员','李');
+ VALUES (1569188081062903808,'admin','84c45962d887564f','18737843824','liwenbo4922@163.com',NOW(),NOW(),'超级管理员','李');

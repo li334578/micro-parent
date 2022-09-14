@@ -21,6 +21,10 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("tb_user")
 public class User {
+    /**
+     * 用户id  雪花算法
+     */
+    private Long id;
 
     /**
      * 用户名
