@@ -1,5 +1,6 @@
 package com.example.microuser.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.microuser.bean.User;
 
@@ -11,4 +12,6 @@ import com.example.microuser.bean.User;
  * @Version 1.0
  */
 public interface UserService extends IService<User> {
+
+    User getUserByName(String userName);
 }

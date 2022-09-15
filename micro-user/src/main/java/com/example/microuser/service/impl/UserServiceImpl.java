@@ -1,5 +1,6 @@
 package com.example.microuser.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.microuser.bean.User;
 import com.example.microuser.mapper.UserMapper;
@@ -15,4 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Override
+    public User getUserByName(String userName) {
+        // 查询数据库用户
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", userName);
+        return getOne(queryWrapper);
+    }
 }
