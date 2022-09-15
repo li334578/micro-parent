@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public User getUserByName(String userName) {
+    public User getUserByUserName(String userName) {
         // 查询数据库用户
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", userName);

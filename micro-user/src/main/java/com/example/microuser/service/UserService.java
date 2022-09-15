@@ -13,5 +13,5 @@ import com.example.microuser.bean.User;
  */
 public interface UserService extends IService<User> {
 
-    User getUserByName(String userName);
+    User getUserByUserName(String userName);
 }
