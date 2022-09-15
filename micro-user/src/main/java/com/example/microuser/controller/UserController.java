@@ -59,7 +59,7 @@ public class UserController {
         }
         // 对密码进行 加salt MD5运算
         String encryptPassword = MyEncryptUtils.CalMd5AndSalt(user.getUsername(), user.getPassword());
-        User dbUser = userService.getUserByName(user.getName());
+        User dbUser = userService.getUserByUserName(user.getUsername());
         if (Objects.isNull(dbUser)) {
             return Result.error(ResultMsgEnum.USERNAME_NOT_FOUND);
         }
@@ -74,12 +74,12 @@ public class UserController {
     /**
      * 将用户登录并存入Redis
      *
-     * @param dbUser 用户信息
+     * @param user 用户信息
      */
-    private void loginUser(User dbUser) {
-        StpUtil.login(dbUser.getId());
-        RBucket<User> bucket = redisson.getBucket("user:" + dbUser.getId());
-        bucket.set(dbUser, 7200, TimeUnit.SECONDS);
+    private void loginUser(User user) {
+        StpUtil.login(user.getId());
+        RBucket<User> bucket = redisson.getBucket("user:" + user.getId());
+        bucket.set(user, 7200, TimeUnit.SECONDS);
     }
 
 
