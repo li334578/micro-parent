@@ -1,8 +1,6 @@
 package com.example.microuser.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.microcommon.bean.Result;
 import com.example.microcommon.bean.ResultMsgEnum;
@@ -10,12 +8,14 @@ import com.example.microcommon.utils.MyEncryptUtils;
 import com.example.microuser.bean.User;
 import com.example.microuser.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
+import org.redisson.api.RBucket;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName UserController
@@ -31,6 +31,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private Redisson redisson;
 
     @GetMapping("list")
     public Result<List<User>> getAllUserInfo() {
@@ -56,18 +59,33 @@ public class UserController {
         }
         // 对密码进行 加salt MD5运算
         String encryptPassword = MyEncryptUtils.CalMd5AndSalt(user.getUsername(), user.getPassword());
-        // 查询数据库用户
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", user.getUsername());
-        User dbUser = userService.getOne(queryWrapper);
+        User dbUser = userService.getUserByName(user.getName());
         if (Objects.isNull(dbUser)) {
             return Result.error(ResultMsgEnum.USERNAME_NOT_FOUND);
         }
         if (!Objects.equals(dbUser.getPassword(), encryptPassword)) {
             return Result.error(ResultMsgEnum.PASSWORD_IS_WRONG);
         }
-        StpUtil.login(dbUser.getId());
+        loginUser(dbUser);
         // 返回token
         return Result.success("登录成功").setData(StpUtil.getTokenInfo());
+    }
+
+    /**
+     * 将用户登录并存入Redis
+     *
+     * @param dbUser 用户信息
+     */
+    private void loginUser(User dbUser) {
+        StpUtil.login(dbUser.getId());
+        RBucket<User> bucket = redisson.getBucket("user:" + dbUser.getId());
+        bucket.set(dbUser, 7200, TimeUnit.SECONDS);
+    }
+
+
+    @GetMapping("/isLogin")
+    public Result<Boolean> isLogin() {
+        // 判断当前是否是登录状态 (需在header中携带token)
+        return Result.success(StpUtil.isLogin());
     }
 }
