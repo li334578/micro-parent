@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,7 +21,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("tb_user")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 用户id  雪花算法
      */
