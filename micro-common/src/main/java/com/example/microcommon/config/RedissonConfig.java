@@ -4,8 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.springframework.cache.annotation.CachingConfigurerSupport;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,8 +17,7 @@ import javax.annotation.Resource;
  * @Version 1.0
  */
 @Configuration
-@EnableCaching
-public class RedissonConfig extends CachingConfigurerSupport {
+public class RedissonConfig {
     private static final String redisConfTemp = "redis://{}:{}";
 
     @Resource
