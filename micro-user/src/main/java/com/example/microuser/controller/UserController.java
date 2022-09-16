@@ -4,12 +4,14 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.microcommon.bean.Result;
 import com.example.microcommon.bean.ResultMsgEnum;
+import com.example.microcommon.pojo.User;
 import com.example.microcommon.utils.MyEncryptUtils;
-import com.example.microuser.bean.User;
 import com.example.microuser.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,8 +34,9 @@ public class UserController {
     @Resource
     private UserService userService;
 
+
     @Resource
-    private Redisson redisson;
+    private RedissonClient redissonClient;
 
     @GetMapping("list")
     public Result<List<User>> getAllUserInfo() {
@@ -58,7 +61,7 @@ public class UserController {
             return Result.error(ResultMsgEnum.PARAMS_NOT_NULL);
         }
         // 对密码进行 加salt MD5运算
-        String encryptPassword = MyEncryptUtils.CalMd5AndSalt(user.getUsername(), user.getPassword());
+        String encryptPassword = MyEncryptUtils.CalMd5AndSalt(user);
         User dbUser = userService.getUserByUserName(user.getUsername());
         if (Objects.isNull(dbUser)) {
             return Result.error(ResultMsgEnum.USERNAME_NOT_FOUND);
@@ -78,7 +81,7 @@ public class UserController {
      */
     private void loginUser(User user) {
         StpUtil.login(user.getId());
-        RBucket<User> bucket = redisson.getBucket("user:" + user.getId());
+        RBucket<User> bucket = redissonClient.getBucket("user:" + user.getId());
         bucket.set(user, 7200, TimeUnit.SECONDS);
     }
 
