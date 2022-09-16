@@ -1,7 +1,7 @@
 package com.example.microuser.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.microuser.bean.User;
+import com.example.microcommon.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

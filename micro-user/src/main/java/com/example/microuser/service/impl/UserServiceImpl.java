@@ -2,7 +2,7 @@ package com.example.microuser.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.microuser.bean.User;
+import com.example.microcommon.pojo.User;
 import com.example.microuser.mapper.UserMapper;
 import com.example.microuser.service.UserService;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,7 @@
 package com.example.microuser.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.microuser.bean.User;
+import com.example.microcommon.pojo.User;
 
 /**
  * @ClassName UserService

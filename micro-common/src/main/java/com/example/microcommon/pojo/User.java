@@ -1,4 +1,4 @@
-package com.example.microuser.bean;
+package com.example.microcommon.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;

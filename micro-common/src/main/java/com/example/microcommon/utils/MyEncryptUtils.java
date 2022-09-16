@@ -2,7 +2,7 @@ package com.example.microcommon.utils;
 
 import cn.hutool.crypto.digest.MD5;
 import com.example.microcommon.exception.ServiceException;
-//import com.example.microuser.bean.User;
+import com.example.microcommon.pojo.User;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -29,16 +29,16 @@ public class MyEncryptUtils {
         return md5.digestHex16(originString);
     }
 
-//    /**
-//     * 对用户的密码进行加盐MD5加密 username作为salt
-//     *
-//     * @param user 用户参数 username、password 不能为null
-//     * @return 加密后的字符串
-//     */
-//    public static String CalMd5AndSalt(User user) {
-//        if (Objects.isNull(user.getUsername()) || Objects.isNull(user.getPassword())) {
-//            throw new ServiceException("账户名或密码不能为空");
-//        }
-//        return CalMd5AndSalt(user.getUsername(), user.getPassword());
-//    }
+    /**
+     * 对用户的密码进行加盐MD5加密 username作为salt
+     *
+     * @param user 用户参数 username、password 不能为null
+     * @return 加密后的字符串
+     */
+    public static String CalMd5AndSalt(User user) {
+        if (Objects.isNull(user.getUsername()) || Objects.isNull(user.getPassword())) {
+            throw new ServiceException("账户名或密码不能为空");
+        }
+        return CalMd5AndSalt(user.getUsername(), user.getPassword());
+    }
 }
