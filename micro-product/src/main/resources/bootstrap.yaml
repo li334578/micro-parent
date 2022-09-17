@@ -1,9 +1,9 @@
 server:
-  port: 10012
+  port: 10013
 
 spring:
   application:
-    name: micro-user
+    name: micro-product
   cloud:
     nacos:
       discovery:

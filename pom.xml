@@ -33,6 +33,7 @@
         <mybatis.plus.version>3.1.1</mybatis.plus.version>
         <mysql.version>8.0.20</mysql.version>
         <satoken.version>1.31.0</satoken.version>
+        <micro.common.version>0.0.1-SNAPSHOT</micro.common.version>
     </properties>
 
     <dependencyManagement>
@@ -124,6 +125,12 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-dao-redis-jackson</artifactId>
                 <version>${satoken.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>micro-common</artifactId>
+                <version>${micro.common.version}</version>
             </dependency>
         </dependencies>
 

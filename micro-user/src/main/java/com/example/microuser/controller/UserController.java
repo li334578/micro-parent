@@ -1,5 +1,6 @@
 package com.example.microuser.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.microcommon.bean.Result;
@@ -39,6 +40,7 @@ public class UserController {
     private RedissonClient redissonClient;
 
     @GetMapping("list")
+    @SaCheckLogin
     public Result<List<User>> getAllUserInfo() {
         List<User> list = userService.list();
         list.stream().map(User::toString).forEach(log::info);
@@ -46,6 +48,7 @@ public class UserController {
     }
 
     @GetMapping("{id}")
+    @SaCheckLogin
     public Result<User> getOne(@PathVariable Long id) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -90,5 +93,11 @@ public class UserController {
     public Result<Boolean> isLogin() {
         // 判断当前是否是登录状态 (需在header中携带token)
         return Result.success(StpUtil.isLogin());
+    }
+
+    @GetMapping("/logout")
+    public Result logout() {
+        StpUtil.logout();
+        return Result.success();
     }
 }
